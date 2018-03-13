@@ -12,7 +12,7 @@ function playSound(e) {
   if(!audio) return; //Stop execution unless keypress has an associated audio file
   audio.currentTime = 0; // Resets sound if it's already playing.
   audio.play();
-  key.classList.add('playing');
+  key.classList.toggle('playing');
 }
 
 function removeTransition(e) {
