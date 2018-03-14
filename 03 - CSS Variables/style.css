@@ -20,3 +20,21 @@ body {
 input {
   width:100px;
 }
+
+/* Here's the course content: */
+
+:root {
+  --base: #41db1e;
+  --spacing: 10px;
+  --blur: 10px;
+}
+
+img {
+  padding: var(--spacing);
+  background: var(--base);
+  filter: blur(var(--blur));
+}
+
+.hl {
+  color: var(--base);
+}
