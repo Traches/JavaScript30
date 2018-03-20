@@ -15,15 +15,15 @@ const checkboxes = document.querySelectorAll('input[type=checkbox]');
 document.addEventListener('keydown', shiftCheck);
 document.addEventListener('keyup', shiftCheck);
 
-checkboxes.forEach( c => {
+checkboxes.forEach(c => {
   c.addEventListener('change', multiSelect)
-} )
+});
 
 function shiftCheck(e) {
   // Return if it's not a shift key:
   if (e.key != 'Shift') return;
   
-  if ( e.type === 'keydown' ) {
+  if (e.type === 'keydown') {
     shiftPressed = true;
   } else if (e.type === 'keyup') {
     shiftPressed = false;
@@ -32,33 +32,28 @@ function shiftCheck(e) {
 
 function multiSelect(e) {
 
-  // don't do anything if shift isn't pressed
+  // don't do anything if shift isn't pressed:
   if (!shiftPressed) return;
 
-  // Make an array from checkboxes:
+  // convert the node module to an array:
   const cbArray = [...checkboxes];
 
-  // Return if there are less than 2 boxes checked 
-  if  ( cbArray.filter( c => c.checked ).length < 2 ) return;
+  // Return if there are less than 2 boxes checked:
+  if  (cbArray.filter(c => c.checked).length < 2) return;
 
-  // Find the first and last items checked: 
-  const startChecks = cbArray.findIndex( c => c.checked );
+  // Find the first one, which is pretty easy: 
+  const startChecks = cbArray.findIndex(c => c.checked);
   
-  // This would be so much easier in ruby... slice() to make a new array,
-  // because reverse() mutates whatever it operates on. Then search to find the
-  // last checked box, and subtract it from the length to finally get the index
-  // we want: 
-  const stopChecks  = 
-    cbArray.length - cbArray.slice().reverse().findIndex( c => c.checked ) ;
-
-  console.log(`first: ${startChecks}, last: ${stopChecks}`);
+  // Finding the last one is harder though. This would be so much easier in
+  // ruby...  We slice() to make a new array, because reverse() mutates whatever
+  // it operates on. Then find the index of the last checked box, and flip it
+  // negative to count from the end:
+  const stopChecks  = -cbArray.slice().reverse().findIndex(c => c.checked) ;
 
   // Create an array of the boxes to be changed:
-  console.log(cbArray);
-  const toChange = cbArray.slice( startChecks, stopChecks);
-  console.log( toChange );
+  const toChange = cbArray.slice(startChecks, stopChecks);
 
-  // Iterate over them
-  toChange.forEach( c => c.checked = true );
+  // Set each one to checked:
+  toChange.forEach(c => c.checked = true);
 
 }
